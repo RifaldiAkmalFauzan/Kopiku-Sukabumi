@@ -1,0 +1,24 @@
+<div class="relative overflow-hidden shadow-soft rounded-2xl w-full font-inter">
+  <!-- Gambar full cover -->
+  <img
+    src="[[PRODUCT_IMG_SRC]]"
+    alt="[[PRODUCT_NAME]]"
+    class="block w-full h-48 object-cover rounded-2xl"
+  />
+
+  <!-- Overlay gradasi dari bawah -->
+  <div class="absolute inset-0 rounded-2xl pointer-events-none"></div>
+
+  <!-- Konten teks -->
+  <div class="absolute inset-0 flex flex-col justify-end p-4">
+    <h3 class="text-lg font-bold text-white leading-6">[[PRODUCT_NAME]]</h3>
+    <p class="text-sm text-white font-medium mb-3 drop-shadow-md">Rp [[PRODUCT_PRICE]]</p>
+
+    <button
+      class="btn-detail w-full py-2 bg-primary text-white text-sm font-semibold rounded-md hover:bg-hover-primary transition-colors flex items-center justify-center"
+      data-id="[[PRODUCT_ID]]"
+    >
+      Lihat Detail
+    </button>
+  </div>
+</div>

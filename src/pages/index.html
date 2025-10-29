@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Kopiku Sukabumi</title>
+    <link href="../../dist/css/style.css" rel="stylesheet" />
+  </head>
+
+  <body
+    class="bg-background min-h-screen w-full grid grid-cols-1 place-items-center font-[inter] md:grid-cols-2 md:items-center md:justify-items-center md:px-10 md:pt-10 md:pb-5 my-0"
+  >
+    <header class="md:w-full">
+      <div class="logo flex items-center justify-center">
+        <img src="/src/assets/img/logo-KopikuSukabumi.png" alt="" />
+      </div>
+    </header>
+    <!-- Container utama -->
+    <main class="max-w-sm md:w-full md:px-8">
+      <div id="login-container"></div>
+    </main>
+    <footer
+      class="flex items-center justify-center max-w-sm w-full my-2 px-4 gap-3 md:col-span-full md:justify-self-center md:my-0"
+    >
+      <div class="flex-1 border-t-2 border-primary"></div>
+      <img src="/src/assets/icons/coffee-cup.svg" alt="Ikon Kopi" class="h-6 w-auto" />
+      <div class="flex-1 border-t-2 border-gray-500"></div>
+    </footer>
+    <!-- Script untuk memanggil komponen -->
+    <script>
+      // Ambil komponen login
+      fetch('../components/LoginForm.html')
+        .then((res) => res.text())
+        .then((data) => {
+          document.getElementById('login-container').innerHTML = data;
+        })
+        .catch((err) => console.error('Gagal memuat komponen:', err));
+    </script>
+
+    <script src="../js/login.js"></script>
+  </body>
+</html>

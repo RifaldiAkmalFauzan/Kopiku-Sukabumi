@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@theme {
+  /* COLORS */
+  --color-primary: #e67e22;
+  --color-dark: #231910;
+  --color-light: #f8f7f6;
+  --color-background: #f3ece7;
+  --color-hover-primary: #d35400;
+
+  /* FONT FAMILY */
+  --font-inter: 'Inter', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+
+  /* BOX SHADOW */
+  --box-shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Jika Anda ingin menambahkan utilities kustom seperti box-shadow-soft, gunakan @utility: */
+@utility box-shadow-soft {
+  box-shadow: var(--box-shadow-soft);
+}
+
+/* body {
+  opacity: 0;
+
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+body.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+} */
