@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Kopiku Admin</title>
+    <link rel="stylesheet" href="../../dist/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="bg-background font-[inter] min-h-screen">
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <main class="p-4 md:p-6 max-w-sm md:max-w-2xl mx-auto">
+      <!-- Sidebar (opsional, bisa di-hide di mobile) -->
+      <div id="sidebar-container"></div>
+
+      <!-- Statistik Cards -->
+      <section id="stats-container" class="grid grid-cols-2 md:grid-cols-4 gap-4 my-6"></section>
+
+      <!-- Grafik -->
+      <section id="chart-container" class="mt-6"></section>
+    </main>
+
+    <script type="module" src="./js/dashboard.js"></script>
+  </body>
+</html>

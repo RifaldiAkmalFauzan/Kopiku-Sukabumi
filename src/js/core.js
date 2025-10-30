@@ -1,14 +1,8 @@
-// ============================
-// 📁 src/js/core.js (versi aman)
-// ============================
-
 import { productsData } from './bestSeller.js';
 import { catalogProductsData } from './catalog.js';
 import { getCart } from './cart.js';
 
-// ==================================================
-// 🔹 Fungsi Loader Komponen Statis (Header, Nav, dsb.)
-// ==================================================
+//  Fungsi Loader Komponen Statis (Header, Nav, dsb.)
 export const loadComponent = async (url, targetId) => {
   try {
     const res = await fetch(url);
@@ -22,9 +16,7 @@ export const loadComponent = async (url, targetId) => {
   }
 };
 
-// ==================================================
-// 🔹 Render Katalog Produk (ProductCatalog.html)
-// ==================================================
+//  Render Katalog Produk (ProductCatalog.html)
 export const renderCatalog = () => {
   const productContainer = document.getElementById('product-catalog-grid');
   if (!productContainer) return;
@@ -56,9 +48,7 @@ export const renderCatalog = () => {
     .catch((err) => console.error('Gagal merender katalog:', err));
 };
 
-// ==================================================
-// 🔹 Render Produk untuk Home
-// ==================================================
+// Render Produk untuk Home
 export const renderProducts = () => {
   const productContainer = document.getElementById('product-list');
   if (!productContainer) return;
@@ -81,9 +71,7 @@ export const renderProducts = () => {
     .catch((err) => console.error('Gagal merender produk home:', err));
 };
 
-// ==================================================
-// 🔹 Fungsi Update Badge Jumlah Keranjang
-// ==================================================
+// Fungsi Update Badge Jumlah Keranjang
 export const updateCartBadge = () => {
   const badge = document.getElementById('cart-count');
   if (!badge) return;
@@ -102,9 +90,7 @@ export const updateCartBadge = () => {
   }
 };
 
-// ==================================================
-// 🔹 Fungsi Inisialisasi Navbar (panggil di main.js)
-// ==================================================
+// Fungsi Inisialisasi Navbar (panggil di main.js)
 export const initNavbar = () => {
   const links = document.querySelectorAll('nav a');
   links.forEach((link) => {
@@ -115,10 +101,7 @@ export const initNavbar = () => {
   });
 };
 
-
-// ==================================================
-// 🔹 Fungsi Header Dinamis (versi final & fleksibel)
-// ==================================================
+// Fungsi Header Dinamis (versi final & fleksibel)
 export function setDynamicHeader({
   title = 'Kopiku Sukabumi',
   showBack = false,
@@ -193,9 +176,8 @@ export const setActiveNav = () => {
     }
   });
 };
-// ==================================================
-// 🔹 Simpan halaman terakhir sebelum ke Checkout
-// ==================================================
+
+// Simpan halaman terakhir sebelum ke Checkout
 document.addEventListener('click', (e) => {
   const link = e.target.closest('a[href*="Checkout.html"]');
   if (link) {

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil Saya - Kopiku Sukabumi</title>
+    <link rel="stylesheet" href="../../dist/css/style.css" />
+    <script type="module" src="../js/profile.js" defer></script>
+  </head>
+  <body class="bg-light min-h-screen flex flex-col font-inter">
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    <!-- Konten -->
+    <main id="profile-container" class="flex-1 container mx-auto px-4 py-6 max-w-sm md:max-w-2xl">
+      <div class="bg-white shadow-soft rounded-2xl p-6 text-center">
+        <img
+          src="../assets/img/profile.png"
+          alt="User Avatar"
+          class="w-20 h-20 mx-auto rounded-full mb-4 border border-gray-300"
+        />
+        <h2 class="text-xl font-semibold text-dark">Patrick Star</h2>
+        <p class="text-gray-500 mb-4">patrick@kopiku.com</p>
+
+        <hr class="my-4" />
+
+        <div class="text-left space-y-3 grid grid-cols-2 jus">
+          <h3 class="font-bold">Nomor HP:</h3>
+          <span>0899 8877 2244</span>
+          <h3 class="font-bold">Alamat:</h3>
+          <span
+            >Jl. Melati Raya No. 12, RT.005/RW.002, Kel. Kebagusan, Kec. Pasar Minggu, Jakarta
+            Selatan, ID 12520</span
+          >
+          <h3 class="font-bold">Status Akun:</h3>
+          <span> User Aktif</span>
+        </div>
+
+        <button
+          id="btn-logout"
+          class="mt-6 w-full bg-primary text-white py-2 rounded-lg hover:bg-hover-primary transition"
+        >
+          Keluar Akun
+        </button>
+      </div>
+    </main>
+
+    <!-- Bottom Nav -->
+    <div id="nav-container"></div>
+  </body>
+</html>
