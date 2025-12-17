@@ -15,7 +15,7 @@ Kopiku Sukabumi adalah aplikasi web e-commerce sederhana yang dibuat sebagai pro
 ### 👤 Autentikasi
 - Login User & Admin
 - Register User
-- Proteksi halaman tertentu (Checkout & Admin)
+- Proteksi halaman
 
 ### 📦 Manajemen Produk
 - Menampilkan daftar produk
@@ -58,15 +58,14 @@ Fokus proyek ini adalah implementasi konsep, bukan untuk produksi
 Pastikan JSON Server berjalan di port 3000 sebelum menggunakan aplikasi
 
 ## 👥 Anggota Kelompok :
-ANGELITA TIARA NOFRIYANTI SIDABALOK
-FITRIYANI
-MOHAMAD ARIEF RIFANSYAH
-MOHAMMAD DAFFA LUTF REYTSAQIF AL-GHIFARI
-MUHAMAD RIFKI MAULANA
-RIFALDI AKMAL FAUZAN
+* Angelita Tiara Nofriyanti Sidabalok
+* Fitriyani  
+* Mohamad Arief Rifansyah
+* Mohammad Daffa Lutf Reytsaqif Al-Ghifari
+* Muhamad Rifki Maulana
+* Rifaldi Akmal Fauzan
 
 ## 📅 Status Project
-
 ✅ Implementasi Back-End
 ✅ Integrasi Front-End & Back-End
 ✅ Siap dipresentasikan
