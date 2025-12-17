@@ -1,2 +1,45 @@
-if (password === 'adminkopiku123') { localStorage.setItem('role', 'admin'); window.location.href =
-'./Dashboard.html'; }
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login Admin | Kopiku</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-xl shadow w-[360px]">
+      <h2 class="text-2xl font-semibold text-center mb-6 text-[#d946ef]">☕ Login Admin</h2>
+
+      <form id="loginForm" class="space-y-4">
+        <input
+          id="username"
+          type="text"
+          placeholder="Username"
+          class="w-full border p-2 rounded"
+          required
+        />
+        <input
+          id="password"
+          type="password"
+          placeholder="Password"
+          class="w-full border p-2 rounded"
+          required
+        />
+
+        <button
+          type="submit"
+          class="w-full bg-[#d946ef] text-white py-2 rounded hover:bg-fuchsia-700"
+        >
+          Login
+        </button>
+        <button id="btnLogout" class="text-red-500">Logout</button>
+      </form>
+
+      <p id="errorMsg" class="text-red-500 text-sm mt-4 text-center hidden">
+        Username atau password salah
+      </p>
+    </div>
+
+    <script src="./js/login.js"></script>
+  </body>
+</html>

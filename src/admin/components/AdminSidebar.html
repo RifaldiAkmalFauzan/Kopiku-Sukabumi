@@ -1,24 +1,32 @@
-<aside id="admin-sidebar" class="hidden bg-white border-r border-gray-200 w-64 p-5 shadow-sm">
+<aside
+  id="sidebar-container"
+  class="hidden bg-white border-r border-gray-200 w-64 p-5 shadow-sm h-full"
+>
   <nav class="space-y-3">
+    <a href="./Dashboard.html" class="block py-2 px-3 rounded-md hover:bg-primary hover:text-white">
+      📊 Dashboard
+    </a>
+
     <a
-      href="./Dashboard.html"
-      class="block py-2 px-3 rounded-md text-dark font-medium hover:bg-primary hover:text-white transition"
-      >📊 Dashboard</a
+      href="./productManagement.html"
+      class="block py-2 px-3 rounded-md hover:bg-primary hover:text-white"
     >
-    <a
-      href="#"
-      class="block py-2 px-3 rounded-md text-dark font-medium hover:bg-primary hover:text-white transition"
-      >🛒 Order</a
+      ☕ Produk
+    </a>
+
+    <a href="./orders.html" class="block py-2 px-3 rounded-md hover:bg-primary hover:text-white">
+      🛒 Order
+    </a>
+
+    <!-- 🔻 Divider -->
+    <hr class="my-4 border-gray-200" />
+
+    <!-- 🔴 Logout -->
+    <button
+      id="btnLogout"
+      class="w-full text-left py-2 px-3 rounded-md text-red-600 hover:bg-red-100 font-semibold"
     >
-    <a
-      href="#"
-      class="block py-2 px-3 rounded-md text-dark font-medium hover:bg-primary hover:text-white transition"
-      >☕ Produk</a
-    >
-    <a
-      href="#"
-      class="block py-2 px-3 rounded-md text-dark font-medium hover:bg-primary hover:text-white transition"
-      >👤 Pelanggan</a
-    >
+      🚪 Logout
+    </button>
   </nav>
 </aside>

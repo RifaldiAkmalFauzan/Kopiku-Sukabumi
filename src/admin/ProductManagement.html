@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manajemen Produk | Kopiku Admin</title>
+    <link rel="stylesheet" href="../../dist/css/style.css" />
+  </head>
+
+  <body class="bg-background min-h-screen">
+    <!-- HEADER -->
+    <div id="header-container"></div>
+
+    <div class="flex">
+      <!-- SIDEBAR -->
+      <div id="sidebar-wrapper"></div>
+
+      <!-- MAIN -->
+      <main class="flex-1 p-6 max-w-6xl mx-auto">
+        <div class="flex justify-between mb-6">
+          <h2 class="text-2xl font-semibold">📦 Manajemen Produk</h2>
+
+          <button id="btnAdd" class="bg-primary text-white px-4 py-2 rounded-lg shadow">
+            + Tambah Produk
+          </button>
+        </div>
+
+        <div class="bg-white rounded-xl shadow overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="px-4 py-3">ID</th>
+                <th class="px-4 py-3">Nama</th>
+                <th class="px-4 py-3">Harga</th>
+                <th class="px-4 py-3">Stok</th>
+                <th class="px-4 py-3">Gambar</th>
+                <th class="px-4 py-3">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="productTableBody"></tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <!-- MODAL -->
+    <div
+      id="modalForm"
+      class="fixed inset-0 bg-black/50 flex items-center justify-center opacity-0 pointer-events-none transition"
+    >
+      <div class="bg-white w-[420px] p-6 rounded-xl">
+        <h3 id="modalTitle" class="text-xl font-semibold mb-4"></h3>
+
+        <form id="productForm" class="space-y-3">
+          <input type="hidden" id="productId" />
+
+          <input id="productName" placeholder="Nama Produk" class="w-full p-2 border rounded" />
+          <input
+            id="productPrice"
+            type="number"
+            placeholder="Harga"
+            class="w-full p-2 border rounded"
+          />
+          <input
+            id="productStock"
+            type="number"
+            placeholder="Stok"
+            class="w-full p-2 border rounded"
+          />
+          <input id="productImage" placeholder="URL Gambar" class="w-full p-2 border rounded" />
+          <input
+            id="productWeight"
+            placeholder="Berat"
+            class="w-full p-2 border rounded"
+          />
+
+          <textarea
+            id="productDescription"
+            placeholder="Deskripsi Produk"
+            class="w-full p-2 border rounded"
+            rows="3"
+          ></textarea>
+
+          <label class="flex items-center gap-2">
+            <input type="checkbox" id="productBestSeller" />
+            <span>Best Seller</span>
+          </label>
+
+          <div class="flex justify-end gap-2 pt-4">
+            <button type="button" id="btnCancel" class="px-4 py-2 bg-gray-200 rounded">
+              Batal
+            </button>
+            <button type="submit" class="px-4 py-2 bg-primary text-white rounded">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="./js/productManagement.js"></script>
+  </body>
+</html>

@@ -1,32 +1,30 @@
-import { loadComponent, updateCartBadge } from '../../js/core.js';
+import { requireAdmin, confirmAdminLogout } from './auth.js';
+requireAdmin();
+
+import { loadComponent } from "../../user/js/core.js";
 import { incomeData } from './chartData.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   console.log('[ADMIN] Dashboard dimuat');
 
-  // 🔹 Muat Header & Sidebar
+  // Load Header & Sidebar
   await loadComponent('./components/AdminHeader.html', 'header-container');
-  await loadComponent('./components/AdminSidebar.html', 'sidebar-container');
+  await loadComponent('./components/AdminSidebar.html', 'sidebar-wrapper');
 
-  console.log('[ADMIN] Header & Sidebar berhasil dimuat');
+  // 🔐 Logout
+  const logoutBtn = document.getElementById('btnLogout');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', confirmAdminLogout);
+  }
 
-  // 🔹 Aktifkan toggle menu setelah komponen termuat
   initSidebarToggle();
-
-  // 🔹 Update cart badge (kalau ada)
-  updateCartBadge();
-
-  // 🔹 Render statistik
   renderStats();
-
-  // 🔹 Muat dan render chart
-  await loadComponent('./components/AdminChart.html', 'chart-container');
   renderChart();
+
+  console.log('[ADMIN] Dashboard siap ✅');
 });
 
-// =============================
-// 🔹 FUNGSI: Sidebar Toggle
-// =============================
+// Sidebar toggle
 function initSidebarToggle() {
   const toggleBtn = document.getElementById('menu-toggle');
   const sidebar = document.getElementById('sidebar-container');
@@ -35,41 +33,35 @@ function initSidebarToggle() {
 
   toggleBtn.addEventListener('click', () => {
     sidebar.classList.toggle('hidden');
-    sidebar.classList.toggle('md:block'); // contoh agar tetap muncul di layar besar
   });
-
-  console.log('[ADMIN] Sidebar toggle aktif ✅');
 }
 
-// =============================
-// 🔹 FUNGSI: Statistik
-// =============================
+// Stats dummy
 function renderStats() {
-  const stats = [
-    { icon: 'shopping-cart.svg', title: 'Total Penjualan', value: '15.000 pcs' },
-    { icon: 'calendar.svg', title: 'Total Orderan', value: '9.000' },
-    { icon: 'dollar.svg', title: 'Total Pendapatan', value: 'Rp 950.000.000' },
-    { icon: 'credit-card.svg', title: 'Penjualan /Bln', value: 'Rp 100.000.000' },
-  ];
+  document.getElementById('stats-container').innerHTML = `
+    <div class="bg-white rounded-xl p-4 shadow">
+      <p class="text-sm text-gray-500">Total Produk</p>
+      <p class="text-2xl font-semibold">24</p>
+    </div>
 
-  fetch('./components/AdminStatsCard.html')
-    .then((res) => res.text())
-    .then((template) => {
-      let html = '';
-      stats.forEach((s) => {
-        html += template
-          .replace('[[ICON_SRC]]', s.icon)
-          .replace('[[TITLE]]', s.title)
-          .replace('[[VALUE]]', s.value);
-      });
-      document.getElementById('stats-container').innerHTML = html;
-    })
-    .catch((err) => console.error('Gagal render stats:', err));
+    <div class="bg-white rounded-xl p-4 shadow">
+      <p class="text-sm text-gray-500">Total Order</p>
+      <p class="text-2xl font-semibold">120</p>
+    </div>
+
+    <div class="bg-white rounded-xl p-4 shadow">
+      <p class="text-sm text-gray-500">Pendapatan</p>
+      <p class="text-2xl font-semibold">Rp 3.200.000</p>
+    </div>
+
+    <div class="bg-white rounded-xl p-4 shadow">
+      <p class="text-sm text-gray-500">Admin Aktif</p>
+      <p class="text-2xl font-semibold">1</p>
+    </div>
+  `;
 }
 
-// =============================
-// 🔹 FUNGSI: Chart
-// =============================
+// Chart
 function renderChart() {
   const ctx = document.getElementById('incomeChart');
   if (!ctx) return;
@@ -81,7 +73,7 @@ function renderChart() {
       plugins: { legend: { display: false } },
       scales: {
         x: { grid: { display: false } },
-        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+        y: { beginAtZero: true },
       },
     },
   });
