@@ -51,8 +51,28 @@ Kopiku Sukabumi adalah aplikasi web e-commerce sederhana yang dibuat sebagai pro
 ## 🌐 Live Demo
 **Hosting:** (https://kopiku-sukabumi.netlify.app/)
 
-## 🚀 Cara Menjalankan Proyek (Lokal)
 
+## ⚠️ Catatan Penting
+Backend menggunakan JSON Server (lokal)
+Fokus proyek ini adalah implementasi konsep, bukan untuk produksi
+Pastikan JSON Server berjalan di port 3000 sebelum menggunakan aplikasi
+
+## 👥 Anggota Kelompok :
+ANGELITA TIARA NOFRIYANTI SIDABALOK
+FITRIYANI
+MOHAMAD ARIEF RIFANSYAH
+MOHAMMAD DAFFA LUTF REYTSAQIF AL-GHIFARI
+MUHAMAD RIFKI MAULANA
+RIFALDI AKMAL FAUZAN
+
+## 📅 Status Project
+
+✅ Implementasi Back-End
+✅ Integrasi Front-End & Back-End
+✅ Siap dipresentasikan
+
+
+## 🚀 Cara Menjalankan Proyek (Lokal)
 ### 1. Clone Repository
 ```bash
 git clone https://github.com/RifaldiAkmalFauzan/Kopiku-Sukabumi.git
@@ -69,3 +89,5 @@ json-server --watch db.json --port 3000
 ### 4. Buka Aplikasi
 ```bash
 Buka file Index.html melalui browser atau menggunakan Live Server Extension.
+
+
