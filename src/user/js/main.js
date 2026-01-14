@@ -155,3 +155,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   console.log('[DEBUG] ✅ main.js selesai dijalankan');
 });
+

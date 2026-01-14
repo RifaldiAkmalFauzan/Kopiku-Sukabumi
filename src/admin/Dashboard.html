@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard | Kopiku Admin</title>
 
-    <link rel="stylesheet" href="../../dist/css/style.css" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="/dist/css/style.css" />
+
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
@@ -15,7 +18,7 @@
 
     <div class="flex">
       <!-- SIDEBAR -->
-      <div id="sidebar-wrapper"></div>
+      <div id="sidebar-container"></div>
 
       <!-- MAIN CONTENT -->
       <main class="flex-1 p-4 md:p-6 max-w-5xl mx-auto">
@@ -36,6 +39,7 @@
       </main>
     </div>
 
+    <!-- JS -->
     <script type="module" src="./js/dashboard.js"></script>
   </body>
 </html>

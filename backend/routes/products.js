@@ -1,73 +1,230 @@
+// const express = require("express");
+// const router = express.Router();
+// const db = require("../db");
+
+// // GET semua produk
+// router.get("/", (req, res) => {
+//   const sql = `SELECT id, name, price, weight, stock, img, description, isBestSeller FROM products`;
+//   db.query(sql, (err, results) => {
+//     if (err) return res.status(500).json({ message: "Gagal ambil produk" });
+//     res.json(results);
+//   });
+// });
+
+// // GET produk by ID
+// router.get("/:id", (req, res) => {
+//   const sql = `SELECT id, name, price, weight, stock, img, description, isBestSeller FROM products WHERE id=?`;
+//   db.query(sql, [req.params.id], (err, results) => {
+//     if (err) return res.status(500).json({ message: "Error server" });
+//     if (results.length === 0) return res.status(404).json({ message: "Produk tidak ditemukan" });
+//     res.json(results[0]);
+//   });
+// });
+
+// // CREATE produk
+// router.post("/", (req, res) => {
+//   const { name, price, weight, stock, img, description, isBestSeller } = req.body;
+//   const sql = `
+//     INSERT INTO products (name, price, weight, stock, img, description, isBestSeller)
+//     VALUES (?, ?, ?, ?, ?, ?, ?)
+//   `;
+//   db.query(sql, [name, price, weight, stock, img, description, isBestSeller ? 1 : 0], (err, result) => {
+//     if (err) return res.status(500).json({ message: "Gagal menambah produk" });
+//     res.status(201).json({ message: "Produk berhasil ditambahkan", id: result.insertId });
+//   });
+// });
+
+// // UPDATE produk
+// router.put("/:id", (req, res) => {
+//   const { name, price, weight, stock, img, description, isBestSeller } = req.body;
+//   const sql = `
+//     UPDATE products
+//     SET name=?, price=?, weight=?, stock=?, img=?, description=?, isBestSeller=?
+//     WHERE id=?
+//   `;
+//   db.query(sql, [name, price, weight, stock, img, description, isBestSeller ? 1 : 0, req.params.id], (err, result) => {
+//     if (err) return res.status(500).json({ message: "Gagal mengupdate produk" });
+//     if (result.affectedRows === 0) return res.status(404).json({ message: "Produk tidak ditemukan" });
+//     res.json({ message: "Produk berhasil diupdate" });
+//   });
+// });
+
+// // DELETE produk
+// router.delete("/:id", (req, res) => {
+//   const sql = `DELETE FROM products WHERE id=?`;
+//   db.query(sql, [req.params.id], (err, result) => {
+//     if (err) return res.status(500).json({ message: "Gagal menghapus produk" });
+//     if (result.affectedRows === 0) return res.status(404).json({ message: "Produk tidak ditemukan" });
+//     res.json({ message: "Produk berhasil dihapus" });
+//   });
+// });
+
+// module.exports = router;
+
 // backend/routes/products.js
-import express from 'express';
-import fs from 'fs';
-import path from 'path';
-
+const express = require('express');
 const router = express.Router();
-const __dirname = new URL('.', import.meta.url).pathname;
-const dataPath = path.join(__dirname, '../data/products.json');
+const db = require('../db');
 
-// helper
-const readProducts = () =>
-  JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-
-const writeProducts = (data) =>
-  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
-
-// 🔹 GET semua produk
+// @route   GET /products
+// @desc    Get all products
+// @access  Public
+// Di routes/products.js - GET /products
 router.get('/', (req, res) => {
-  const products = readProducts();
-  res.json(products);
+  const sql = `SELECT * FROM products ORDER BY id DESC`;
+
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Get products error:', err);
+      return res.status(500).json({ message: 'Gagal mengambil produk' });
+    }
+
+    // Return langsung array, TANPA wrapper success/data
+    res.json(results);
+  });
 });
 
-// 🔹 GET produk by ID
+// GET product by ID
 router.get('/:id', (req, res) => {
-  const products = readProducts();
-  const product = products.find(p => p.id == req.params.id);
+  const { id } = req.params;
 
-  if (!product) {
-    return res.status(404).json({ message: 'Produk tidak ditemukan' });
-  }
+  const sql = `SELECT * FROM products WHERE id = ?`;
 
-  res.json(product);
+  db.query(sql, [id], (err, results) => {
+    if (err) {
+      console.error('Get product by ID error:', err);
+      return res.status(500).json({ message: 'Error server' });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: 'Produk tidak ditemukan' });
+    }
+
+    // Return langsung object produk
+    res.json(results[0]);
+  });
 });
-
-// 🔹 CREATE produk (ADMIN)
+// @route   POST /products
+// @desc    Create new product
+// @access  Private (Admin)
 router.post('/', (req, res) => {
-  const products = readProducts();
-  const newProduct = {
-    id: Date.now(),
-    ...req.body,
-  };
+  const { name, price, weight, stock, img, description, isBestSeller } = req.body;
 
-  products.push(newProduct);
-  writeProducts(products);
-
-  res.status(201).json(newProduct);
-});
-
-// 🔹 UPDATE produk
-router.put('/:id', (req, res) => {
-  let products = readProducts();
-  const index = products.findIndex(p => p.id == req.params.id);
-
-  if (index === -1) {
-    return res.status(404).json({ message: 'Produk tidak ditemukan' });
+  // Validasi input
+  if (!name || !price) {
+    return res.status(400).json({
+      success: false,
+      message: 'Nama dan harga harus diisi',
+    });
   }
 
-  products[index] = { ...products[index], ...req.body };
-  writeProducts(products);
+  const sql = `
+    INSERT INTO products (name, price, weight, stock, img, description, isBestSeller)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `;
 
-  res.json(products[index]);
+  const isBestSellerValue = isBestSeller ? 1 : 0;
+
+  db.query(
+    sql,
+    [name, price, weight || 0, stock || 0, img || '', description || '', isBestSellerValue],
+    (err, result) => {
+      if (err) {
+        console.error('Create product error:', err);
+        return res.status(500).json({
+          success: false,
+          message: 'Gagal menambah produk',
+        });
+      }
+
+      res.status(201).json({
+        success: true,
+        message: 'Produk berhasil ditambahkan',
+        id: result.insertId,
+      });
+    }
+  );
 });
 
-// 🔹 DELETE produk
+// @route   PUT /products/:id
+// @desc    Update product
+// @access  Private (Admin)
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, price, weight, stock, img, description, isBestSeller } = req.body;
+
+  if (!name || !price) {
+    return res.status(400).json({
+      success: false,
+      message: 'Nama dan harga harus diisi',
+    });
+  }
+
+  const sql = `
+    UPDATE products
+    SET name = ?, price = ?, weight = ?, stock = ?, 
+        img = ?, description = ?, isBestSeller = ?
+    WHERE id = ?
+  `;
+
+  const isBestSellerValue = isBestSeller ? 1 : 0;
+
+  db.query(
+    sql,
+    [name, price, weight || 0, stock || 0, img || '', description || '', isBestSellerValue, id],
+    (err, result) => {
+      if (err) {
+        console.error('Update product error:', err);
+        return res.status(500).json({
+          success: false,
+          message: 'Gagal mengupdate produk',
+        });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'Produk tidak ditemukan',
+        });
+      }
+
+      res.json({
+        success: true,
+        message: 'Produk berhasil diupdate',
+      });
+    }
+  );
+});
+
+// @route   DELETE /products/:id
+// @desc    Delete product
+// @access  Private (Admin)
 router.delete('/:id', (req, res) => {
-  let products = readProducts();
-  products = products.filter(p => p.id != req.params.id);
+  const { id } = req.params;
 
-  writeProducts(products);
-  res.json({ message: 'Produk berhasil dihapus' });
+  const sql = `DELETE FROM products WHERE id = ?`;
+
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error('Delete product error:', err);
+      return res.status(500).json({
+        success: false,
+        message: 'Gagal menghapus produk',
+      });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Produk tidak ditemukan',
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Produk berhasil dihapus',
+    });
+  });
 });
 
-export default router;
+module.exports = router;

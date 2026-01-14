@@ -10,49 +10,40 @@ document.addEventListener('click', async (event) => {
   }
 
   try {
-    const res = await fetch(`http://localhost:3000/users?username=${phone}&password=${password}`);
-    const users = await res.json();
+    const res = await fetch('http://localhost:3000/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: phone,
+        password: password
+      })
+    });
 
-    if (users.length === 0) {
+    const data = await res.json();
+
+    if (!res.ok) {
       alert('❌ Nomor telepon atau kata sandi salah!');
       return;
     }
 
-    const user = users[0];
+    const user = data.user;
 
-    // ✅ SIMPAN SESSION FINAL
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('role', user.role);
-
-    // ⏱️ Simpan waktu login (timestamp)
     localStorage.setItem('loginAt', Date.now());
 
     alert(`✅ Login berhasil sebagai ${user.role.toUpperCase()}`);
 
     if (user.role === 'admin') {
-      window.location.href = '../../admin/Dashboard.html';
-    } else {
-      window.location.href = 'Home.html';
-    }
+  window.location.href = '/admin/Dashboard.html';
+} else {
+  window.location.href = '/pages/Home.html';
+}
+
   } catch (err) {
     console.error('[LOGIN ERROR]', err);
     alert('❌ Gagal terhubung ke server');
   }
 });
-
-// document.getElementById('loginForm').addEventListener('submit', async (e) => {
-//   e.preventDefault();
-
-//   const username = document.getElementById('username').value;
-//   const password = document.getElementById('password').value;
-
-//   const res = await fetch(`http://localhost:3000/users?username=${username}&password=${password}`);
-//   const data = await res.json();
-
-//   if (data.length > 0) {
-//     localStorage.setItem('adminLogin', 'true');
-//     window.location.href = 'ProductManagement.html';
-//   } else {
-//     document.getElementById('message').innerText = 'Invalid credentials!';
-//   }
-// });

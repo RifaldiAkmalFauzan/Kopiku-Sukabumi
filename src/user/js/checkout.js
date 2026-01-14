@@ -50,7 +50,7 @@ function renderCartItems() {
 
         <div class="flex-1">
           <p class="font-semibold">${item.name}</p>
-          <p class="text-sm text-gray-500">Rp ${item.price.toLocaleString()}</p>
+        <p class="text-sm text-gray-500">Rp ${Number(item.price).toLocaleString('id-ID')}</p>
           <div class="flex items-center gap-3 mt-2">
             <button class="qty-btn minus-btn text-primary font-bold" data-id="${item.id}">−</button>
             <input class="qty-input w-12 text-center border rounded px-1" data-id="${
@@ -75,26 +75,26 @@ function renderCartItems() {
         (item) => `
       <div class="flex justify-between mb-1">
         <span>${item.name} (${item.quantity}x)</span>
-        <span>Rp ${(Number(item.price) * Number(item.quantity)).toLocaleString()}</span>
+        <span>Rp ${(Number(item.price) * Number(item.quantity)).toLocaleString('id-ID')}</span>
       </div>`
       )
       .join('')}
     <hr class="my-2 border-gray-300" />
-    <div class="flex justify-between text-sm">
-      <span>Total Belanja</span>
-      <span>Rp ${totalBelanja.toLocaleString()}</span>
-    </div>
-    <div class="flex justify-between text-sm">
-      <span>Ongkir</span>
-      <span>Rp ${ongkir.toLocaleString()}</span>
-    </div>
-    <div class="flex justify-between font-semibold text-lg mt-2">
-      <span>Grand Total</span>
-      <span>Rp ${grandTotal.toLocaleString()}</span>
-    </div>
+  <div class="flex justify-between text-sm">
+  <span>Total Belanja</span>
+  <span>Rp ${Number(totalBelanja).toLocaleString('id-ID')}</span>
+</div>
+<div class="flex justify-between text-sm">
+  <span>Ongkir</span>
+  <span>Rp ${Number(ongkir).toLocaleString('id-ID')}</span>
+</div>
+<div class="flex justify-between font-semibold text-lg mt-2">
+  <span>Grand Total</span>
+  <span>Rp ${Number(grandTotal).toLocaleString('id-ID')}</span>
+</div>
   `;
 
-  totalContainer.textContent = `Rp ${grandTotal.toLocaleString()}`;
+  totalContainer.textContent = `Rp ${Number(grandTotal).toLocaleString('id-ID')}`;
 
   // ===============================
   // 🔹 Event Handlers

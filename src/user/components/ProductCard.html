@@ -1,16 +1,22 @@
+<!-- ProductCard.html -->
 <div class="flex bg-background p-4 rounded-lg shadow-md items-center justify-between">
   <div class="flex-1 pr-4">
     <h3 class="text-lg font-bold text-dark">[[PRODUCT_NAME]]</h3>
-    <p class="text-sm text-gray-600">[[PRODUCT_DESC]]</p>
-    <button
-      class="mt-3 py-2 px-4 text-sm bg-primary text-white rounded-md font-semibold hover:bg-hover-primary transition-colors"
-    >
-      [[PRODUCT_BUTTON]]
-    </button>
+    <p class="text-sm text-gray-600 line-clamp-2">[[PRODUCT_DESC]]</p>
+    <div class="flex items-center justify-between mt-3">
+      <span class="text-primary font-bold">Rp [[PRODUCT_PRICE]]</span>
+      <button
+        onclick="location.href='./ProductDetail.html?id=[[PRODUCT_ID]]'"
+        class="py-2 px-4 text-sm bg-primary text-white rounded-md font-semibold hover:bg-hover-primary transition-colors"
+      >
+        Lihat Detail
+      </button>
+    </div>
   </div>
   <img
     src="[[PRODUCT_IMG_SRC]]"
-    alt="Gambar Produk"
+    alt="[[PRODUCT_NAME]]"
     class="w-20 h-20 object-cover rounded-lg shadow-sm"
+    onerror="this.src='../../assets/img/arabica.png'"
   />
 </div>

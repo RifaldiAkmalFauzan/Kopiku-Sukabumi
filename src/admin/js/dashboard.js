@@ -1,23 +1,27 @@
 import { requireAdmin, confirmAdminLogout } from './auth.js';
-requireAdmin();
-
-import { loadComponent } from "../../user/js/core.js";
+import { loadComponent } from '/user/js/core.js';  // path absolut
 import { incomeData } from './chartData.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // 🔐 CEK ADMIN SETELAH DOM SIAP
+  requireAdmin();
+
   console.log('[ADMIN] Dashboard dimuat');
 
   // Load Header & Sidebar
-  await loadComponent('./components/AdminHeader.html', 'header-container');
-  await loadComponent('./components/AdminSidebar.html', 'sidebar-wrapper');
+  await loadComponent('/admin/components/AdminHeader.html', 'header-container');
+  await loadComponent('/admin/components/AdminSidebar.html', 'sidebar-container');
 
-  // 🔐 Logout
+  // Logout button
   const logoutBtn = document.getElementById('btnLogout');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', confirmAdminLogout);
   }
 
+  // Init toggle sidebar
   initSidebarToggle();
+
+  // Render stats & chart
   renderStats();
   renderChart();
 
@@ -27,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Sidebar toggle
 function initSidebarToggle() {
   const toggleBtn = document.getElementById('menu-toggle');
-  const sidebar = document.getElementById('sidebar-container');
+  const sidebar = document.querySelector('#sidebar-container aside'); // pilih aside di dalam container
 
   if (!toggleBtn || !sidebar) return;
 

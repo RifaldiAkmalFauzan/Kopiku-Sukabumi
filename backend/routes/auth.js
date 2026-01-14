@@ -1,57 +1,236 @@
-const express = require("express");
-const fs = require("fs");
-const path = require("path");
+// // const express = require("express");
+// // const router = express.Router();
+// // const db = require("../db");
+
+// // router.post("/login", (req, res) => {
+// //   const { username, password } = req.body;
+
+// //   const sql = "SELECT * FROM users WHERE username=? AND password=?";
+// //   db.query(sql, [username, password], (err, result) => {
+// //     if (err) return res.status(500).json({ message: "Server error" });
+
+// //     if (result.length > 0) {
+// //       res.json({
+// //         message: "Login berhasil",
+// //         user: {
+// //           id: result[0].id,
+// //           username: result[0].username,
+// //           role: result[0].role
+// //         }
+// //       });
+// //     } else {
+// //       res.status(401).json({ message: "Login gagal" });
+// //     }
+// //   });
+// // });
+
+// // module.exports = router;
+
+// // backend/routes/auth.js
+// const express = require("express");
+// const router = express.Router();
+// const db = require("../db");
+
+// // @route   POST /auth/login
+// // @desc    Login user
+// // @access  Public
+// router.post("/login", (req, res) => {
+//   const { username, password } = req.body;
+
+//   // Validasi input
+//   if (!username || !password) {
+//     return res.status(400).json({
+//       success: false,
+//       message: "Username dan password harus diisi"
+//     });
+//   }
+
+//   const sql = "SELECT id, username, role FROM users WHERE username = ? AND password = ?";
+
+//   db.query(sql, [username, password], (err, results) => {
+//     if (err) {
+//       console.error("Login error:", err);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Server error"
+//       });
+//     }
+
+//     if (results.length > 0) {
+//       const user = results[0];
+//       res.json({
+//         success: true,
+//         message: "Login berhasil",
+//         user: {
+//           id: user.id,
+//           username: user.username,
+//           role: user.role || 'user'
+//         }
+//       });
+//     } else {
+//       res.status(401).json({
+//         success: false,
+//         message: "Username atau password salah"
+//       });
+//     }
+//   });
+// });
+
+// // @route   POST /auth/register
+// // @desc    Register new user
+// // @access  Public
+// router.post("/register", (req, res) => {
+//   const { username, password } = req.body;
+
+//   if (!username || !password) {
+//     return res.status(400).json({
+//       success: false,
+//       message: "Username dan password harus diisi"
+//     });
+//   }
+
+//   // Cek apakah username sudah terdaftar
+//   const checkSql = "SELECT id FROM users WHERE username = ?";
+
+//   db.query(checkSql, [username], (err, results) => {
+//     if (err) {
+//       console.error("Check username error:", err);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Server error"
+//       });
+//     }
+
+//     if (results.length > 0) {
+//       return res.status(409).json({
+//         success: false,
+//         message: "Username sudah digunakan"
+//       });
+//     }
+
+//     // Insert user baru
+//     const insertSql = "INSERT INTO users (username, password, role) VALUES (?, ?, 'user')";
+
+//     db.query(insertSql, [username, password], (err, result) => {
+//       if (err) {
+//         console.error("Register error:", err);
+//         return res.status(500).json({
+//           success: false,
+//           message: "Gagal mendaftarkan user"
+//         });
+//       }
+
+//       res.status(201).json({
+//         success: true,
+//         message: "Registrasi berhasil",
+//         userId: result.insertId
+//       });
+//     });
+//   });
+// });
+
+// module.exports = router;
+
+// backend/routes/auth.js
+const express = require('express');
 const router = express.Router();
-const usersFile = path.join(__dirname, "../data/users.json");
+const db = require('../db');
 
-// REGISTER
-router.post("/register", (req, res) => {
-  const { username, password, role } = req.body;
+// @route   POST /auth/login
+// @desc    Login user
+// @access  Public
+router.post('/login', (req, res) => {
+  const { username, password } = req.body;
 
+  // Validasi input
   if (!username || !password) {
-    return res.status(400).json({ message: "Username dan password wajib diisi" });
+    return res.status(400).json({
+      success: false,
+      message: 'Username dan password harus diisi',
+    });
   }
 
-  const users = JSON.parse(fs.readFileSync(usersFile, "utf-8"));
+  const sql = 'SELECT id, username, role FROM users WHERE username = ? AND password = ?';
 
-  // cek user sudah ada
-  if (users.find(u => u.username === username)) {
-    return res.status(400).json({ message: "Username sudah digunakan" });
-  }
+  db.query(sql, [username, password], (err, results) => {
+    if (err) {
+      console.error('Login error:', err);
+      return res.status(500).json({
+        success: false,
+        message: 'Server error',
+      });
+    }
 
-  const newUser = { id: Date.now(), username, password, role: role || "user" };
-  users.push(newUser);
-
-  fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
-
-  res.json({ message: "Registrasi berhasil", user: newUser });
+    if (results.length > 0) {
+      const user = results[0];
+      res.json({
+        success: true,
+        message: 'Login berhasil',
+        user: {
+          id: user.id,
+          username: user.username,
+          role: user.role || 'user',
+        },
+      });
+    } else {
+      res.status(401).json({
+        success: false,
+        message: 'Username atau password salah',
+      });
+    }
+  });
 });
 
-
-// LOGIN
-router.post("/login", (req, res) => {
+// @route   POST /auth/register
+// @desc    Register new user
+// @access  Public
+router.post('/register', (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).json({ message: "Isi username dan password" });
+    return res.status(400).json({
+      success: false,
+      message: 'Username dan password harus diisi',
+    });
   }
 
-  const users = JSON.parse(fs.readFileSync(usersFile, "utf-8"));
+  // Cek apakah username sudah terdaftar
+  const checkSql = 'SELECT id FROM users WHERE username = ?';
 
-  const found = users.find(
-    user => user.username === username && user.password === password
-  );
+  db.query(checkSql, [username], (err, results) => {
+    if (err) {
+      console.error('Check username error:', err);
+      return res.status(500).json({
+        success: false,
+        message: 'Server error',
+      });
+    }
 
-  if (!found) {
-    return res.status(401).json({ message: "Username atau password salah" });
-  }
+    if (results.length > 0) {
+      return res.status(409).json({
+        success: false,
+        message: 'Username sudah digunakan',
+      });
+    }
 
-  const token = "TOKEN-" + found.id; // sederhana dulu
+    // Insert user baru
+    const insertSql = "INSERT INTO users (username, password, role) VALUES (?, ?, 'user')";
 
-  res.json({
-    message: "Login berhasil",
-    token,
-    role: found.role
+    db.query(insertSql, [username, password], (err, result) => {
+      if (err) {
+        console.error('Register error:', err);
+        return res.status(500).json({
+          success: false,
+          message: 'Gagal mendaftarkan user',
+        });
+      }
+
+      res.status(201).json({
+        success: true,
+        message: 'Registrasi berhasil',
+        userId: result.insertId,
+      });
+    });
   });
 });
 

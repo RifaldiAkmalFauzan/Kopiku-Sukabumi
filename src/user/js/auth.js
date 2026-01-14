@@ -18,5 +18,5 @@ export function requireUser() {
 
 function forceLogout() {
   localStorage.clear();
-  window.location.replace('../../../index.html');
+  window.location.replace('/');
 }

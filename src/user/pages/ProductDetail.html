@@ -11,10 +11,19 @@
     <div id="header-container"></div>
 
     <main class="container px-4 mt-6 max-w-sm mx-auto md:max-w-2xl">
+      <!-- Loading Indicator -->
+      <div id="loading" class="text-center py-12">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        <p class="text-gray-500 mt-4">Memuat detail produk...</p>
+      </div>
+      
+      <!-- Product Detail Container -->
       <div id="product-detail-container"></div>
     </main>
 
     <div id="nav-container"></div>
+    
+    <!-- Import JavaScript -->
     <script type="module" src="../js/productDetail.js"></script>
   </body>
 </html>

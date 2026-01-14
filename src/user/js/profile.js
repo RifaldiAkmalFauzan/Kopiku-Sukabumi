@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       localStorage.clear();
 
       // 🔁 Redirect tanpa bisa back
-      window.location.replace('../../../index.html');
+      window.location.replace('/');
     });
   }
 });

@@ -1,3 +1,7 @@
+ // Load Header & Sidebar
+  await loadComponent('/admin/components/AdminHeader.html', 'header-container');
+  await loadComponent('/admin/components/AdminSidebar.html', 'sidebar-container');
+
 document.addEventListener('DOMContentLoaded', () => {
   const isLoggedIn = localStorage.getItem('isLoggedIn');
   const role = localStorage.getItem('role');

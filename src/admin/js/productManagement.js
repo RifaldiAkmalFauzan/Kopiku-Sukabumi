@@ -109,22 +109,32 @@ form.addEventListener('submit', async (e) => {
     isBestSeller: bestSellerInput.checked,
   };
 
-  if (idInput.value) {
-    await fetch(`${API_URL}/${idInput.value}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-  } else {
-    await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-  }
+  try {
+    let res, result;
+    if (idInput.value) {
+      res = await fetch(`${API_URL}/${idInput.value}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      result = await res.json();
+      alert(result.message); // tampilkan pesan update
+    } else {
+      res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      result = await res.json();
+      alert(result.message); // tampilkan pesan create
+    }
 
-  closeModal();
-  loadProducts();
+    closeModal();
+    loadProducts();
+  } catch (err) {
+    console.error(err);
+    alert('Terjadi kesalahan. Cek console untuk detail.');
+  }
 });
 
 /* =====================================================
@@ -162,8 +172,15 @@ window.editProduct = async (id) => {
 window.deleteProduct = async (id) => {
   if (!confirm('Yakin ingin menghapus produk ini?')) return;
 
-  await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-  loadProducts();
+  try {
+    const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+    const result = await res.json();
+    alert(result.message); // tampilkan pesan delete
+    loadProducts();
+  } catch (err) {
+    console.error(err);
+    alert('Terjadi kesalahan saat menghapus produk');
+  }
 };
 
 // INIT
