@@ -4,11 +4,11 @@ Kopiku Sukabumi adalah aplikasi web e-commerce sederhana yang dibuat sebagai pro
 
 ## 📌 Tujuan Proyek
 
-- Mengimplementasikan konsep **Front-End dan Back-End Integration**
 - Menerapkan **CRUD (Create, Read, Update, Delete)** pada data utama
 - Menerapkan **sistem autentikasi (login & register)**
 - Menghubungkan UI dengan data dinamis (API / LocalStorage)
 - Memenuhi kriteria tugas Implementasi Back-End dan Integrasi Front-End
+- Menghasilkan sistem sesuai dokumen **SKPL**
 
 ## 🧩 Fitur Utama
 
@@ -44,6 +44,7 @@ Kopiku Sukabumi adalah aplikasi web e-commerce sederhana yang dibuat sebagai pro
 - **CSS / Tailwind CSS**
 - **JavaScript (ES6 Modules)**
 - **JSON Server** (Backend lokal)
+- MySQL (Backend pengembangan) 
 - **LocalStorage** (Session & Cart)
 - **Git & GitHub**
 - **Netlify** (Hosting)
@@ -52,10 +53,9 @@ Kopiku Sukabumi adalah aplikasi web e-commerce sederhana yang dibuat sebagai pro
 **Hosting:** (https://kopiku-sukabumi.netlify.app/)
 
 
-## ⚠️ Catatan Penting
-Backend menggunakan JSON Server (lokal)
-Fokus proyek ini adalah implementasi konsep, bukan untuk produksi
-Pastikan JSON Server berjalan di port 3000 sebelum menggunakan aplikasi
+## 🔀 Informasi Branch
+- **main** → Backend menggunakan **JSON Server** (versi evaluasi)  
+- **mysql-backend** → Backend menggunakan **MySQL** (pengembangan lanjutan)
 
 ## 👥 Anggota Kelompok :
 * Angelita Tiara Nofriyanti Sidabalok
@@ -88,5 +88,8 @@ json-server --watch db.json --port 3000
 ### 4. Buka Aplikasi
 ```bash
 Buka file Index.html melalui browser atau menggunakan Live Server Extension.
+
+### MySQL (opsional)
+```git checkout mysql-backend
 
 
